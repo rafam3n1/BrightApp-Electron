@@ -1,0 +1,28 @@
+{
+  "name": "bright-app",
+  "productName": "Bright APp",
+  "description": "GRUPO BRIGHT LTDA",
+  "keywords": [],
+  "main": "./main.js",
+  "version": "1.0.0",
+  "author": "rafam",
+  "scripts": {
+    "start": "electron .",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "electron": "26.2.2"
+  },
+  "build": {
+    "appId": "com.seuapp.id",
+    "win": {
+      "target": "nsis"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    }
+  }
+}
