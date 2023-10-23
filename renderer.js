@@ -24,11 +24,12 @@ floatingButton.addEventListener('click', (e) => {
     if (popupMenu.classList.contains('hidden')) {
         popupMenu.classList.remove('hidden');
         popupMenu.style.left = (e.clientX - popupMenu.offsetWidth / 2) + 'px';
-        popupMenu.style.top = (e.clientY - popupMenu.offsetHeight) + 'px';
+        popupMenu.style.top = (e.clientY - popupMenu.offsetHeight - 30) + 'px';
     } else {
         popupMenu.classList.add('hidden');
     }
 });
+
 
 // Funções dos botões do menu
 document.getElementById('home').addEventListener('click', () => {
