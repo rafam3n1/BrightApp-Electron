@@ -3,6 +3,8 @@ const { app, BrowserWindow, BrowserView, Tray, Menu, ipcMain } = require('electr
 let mainWindow;
 let view;
 let tray;
+let floatingButton;
+let loadingElement;
 
 function createWindow() {
   mainWindow = new BrowserWindow({
@@ -20,12 +22,34 @@ function createWindow() {
   // Criando e configurando o BrowserView
   view = new BrowserView();
   mainWindow.setBrowserView(view);
-  
-  // Ajustando o tamanho do BrowserView para deixar espaço na parte inferior
-  const winBounds = mainWindow.getBounds();
-  view.setBounds({ x: 0, y: 0, width: winBounds.width, height: winBounds.height - 60 }); // Deixando 60 pixels de espaço na parte inferior
-  
+  view.setBounds({ x: 0, y: 0, width: mainWindow.getBounds().width, height: mainWindow.getBounds().height });
   view.webContents.loadURL('https://grupobright.com/dashboard/');
+
+  // Criando o botão flutuante como uma janela separada
+  floatingButton = new BrowserWindow({
+    width: 50,
+    height: 50,
+    frame: false,
+    transparent: true,
+    alwaysOnTop: true,
+    resizable: false,
+    skipTaskbar: true,
+    show: false
+  });
+  floatingButton.loadFile('floating_button_html.html');
+
+  // Criando o elemento de carregamento como uma janela separada
+  loadingElement = new BrowserWindow({
+    width: 100,
+    height: 100,
+    frame: false,
+    transparent: true,
+    alwaysOnTop: true,
+    resizable: false,
+    skipTaskbar: true,
+    show: false
+  });
+  loadingElement.loadFile('loading_html.html');
 
   Menu.setApplicationMenu(null);
 }
