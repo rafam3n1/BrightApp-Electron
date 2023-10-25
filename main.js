@@ -18,13 +18,13 @@ function createWindow() {
   mainWindow.maximize();
 
   // Criando e configurando o BrowserView
-  view = new BrowserView({
-    webPreferences: {
-      nodeIntegration: false
-    }
-  });
+  view = new BrowserView();
   mainWindow.setBrowserView(view);
-  view.setBounds({ x: 0, y: 0, width: mainWindow.getBounds().width, height: mainWindow.getBounds().height });
+  
+  // Ajustando o tamanho do BrowserView para deixar espaço na parte inferior
+  const winBounds = mainWindow.getBounds();
+  view.setBounds({ x: 0, y: 0, width: winBounds.width, height: winBounds.height - 60 }); // Deixando 60 pixels de espaço na parte inferior
+  
   view.webContents.loadURL('https://grupobright.com/dashboard/');
 
   Menu.setApplicationMenu(null);
