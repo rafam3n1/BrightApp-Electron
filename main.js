@@ -18,7 +18,11 @@ function createWindow() {
   mainWindow.maximize();
 
   // Criando e configurando o BrowserView
-  view = new BrowserView();
+  view = new BrowserView({
+    webPreferences: {
+      nodeIntegration: false
+    }
+  });
   mainWindow.setBrowserView(view);
   view.setBounds({ x: 0, y: 0, width: mainWindow.getBounds().width, height: mainWindow.getBounds().height });
   view.webContents.loadURL('https://grupobright.com/dashboard/');
@@ -78,4 +82,3 @@ ipcMain.on('navigate', (event, url) => {
 ipcMain.on('navigate-back', (event) => {
   view.webContents.goBack();
 });
-
