@@ -1,10 +1,7 @@
-const { shell } = require('electron');
+const { ipcRenderer, shell } = require('electron');
 
 const floatingButton = document.getElementById('floatingButton');
 const popupMenu = document.getElementById('popupMenu');
-const contentFrame = document.getElementById('contentFrame');
-const loadingElement = document.getElementById('loading');
-
 
 floatingButton.addEventListener('mousedown', (e) => {
     e.preventDefault();
@@ -30,15 +27,14 @@ floatingButton.addEventListener('click', (e) => {
     }
 });
 
-
 // Funções dos botões do menu
 document.getElementById('home').addEventListener('click', () => {
-    contentFrame.src = 'https://grupobright.com/dashboard/';
+    ipcRenderer.send('navigate', 'https://grupobright.com/dashboard/');
     popupMenu.classList.add('hidden');
 });
 
 document.getElementById('back').addEventListener('click', () => {
-    contentFrame.contentWindow.history.back();
+    ipcRenderer.send('navigate-back');
     popupMenu.classList.add('hidden');
 });
 
@@ -50,12 +46,4 @@ document.getElementById('account').addEventListener('click', () => {
 document.getElementById('discord').addEventListener('click', () => {
     shell.openExternal('https://discord.com/invite/CuCJ9XckC3');
     popupMenu.classList.add('hidden');
-});
-
-contentFrame.addEventListener('load', () => {
-    loadingElement.style.display = 'none';
-});
-
-contentFrame.addEventListener('beforeunload', () => {
-    loadingElement.style.display = 'flex';
 });

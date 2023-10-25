@@ -70,3 +70,12 @@ app.on('activate', () => {
     createWindow();
   }
 });
+
+ipcMain.on('navigate', (event, url) => {
+  view.webContents.loadURL(url);
+});
+
+ipcMain.on('navigate-back', (event) => {
+  view.webContents.goBack();
+});
+
