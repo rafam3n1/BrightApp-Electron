@@ -1,5 +1,7 @@
-const { app, BrowserWindow, Tray, Menu, ipcMain } = require('electron');
+const { app, BrowserWindow, BrowserView, Tray, Menu, ipcMain } = require('electron');
+
 let mainWindow;
+let view;
 let tray;
 
 function createWindow() {
@@ -14,7 +16,13 @@ function createWindow() {
   });
 
   mainWindow.maximize();
-  mainWindow.loadFile('index.html');
+
+  // Criando e configurando o BrowserView
+  view = new BrowserView();
+  mainWindow.setBrowserView(view);
+  view.setBounds({ x: 0, y: 0, width: mainWindow.getBounds().width, height: mainWindow.getBounds().height });
+  view.webContents.loadURL('https://grupobright.com/dashboard/');
+
   Menu.setApplicationMenu(null);
 }
 
